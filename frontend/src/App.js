@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import NavBar from "./Navbar";
+import CSidebar from "./CSidebar";
+import Books from "./Books";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LayoutsWithNavbar></LayoutsWithNavbar>}>
+            <Route path="/" element={<CSidebar></CSidebar>}>
+              <Route path="/books" element={<Books></Books>}></Route>
+              <Route path="/second" element={<h1>Nested2</h1>}></Route>
+            </Route>
+          </Route>
+          <Route path={"*"} element={<h1>Not Found</h1>}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
+
+const LayoutsWithNavbar = () => {
+  return (
+    <>
+      <NavBar></NavBar>
+      <Outlet></Outlet>
+    </>
+  );
+};
 
 export default App;
